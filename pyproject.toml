@@ -1,0 +1,37 @@
+[project]
+name = "scientific-pipeline"
+version = "0.1.0"
+description = "Scientific computing pipeline"
+requires-python = ">=3.11"
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "sympy",
+    "polars",
+    "matplotlib",
+    "seaborn",
+    "plotly",
+    "numba",
+    "torch",
+    "snakemake",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=src"
+
+[tool.ruff]
+line-length = 88
+
+[tool.mypy]
+python_version = "3.11"
+strict = true

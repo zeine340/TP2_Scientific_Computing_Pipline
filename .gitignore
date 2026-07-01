@@ -1,0 +1,38 @@
+data/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+
+# Test cache
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Type checker
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+
+# Snakemake
+.snakemake/
