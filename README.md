@@ -1,3 +1,5 @@
+[![Scientific Computing CI/CD Pipeline](https://github.com/zeine340/TP2_Scientific_Computing_Pipline/actions/workflows/ci_cd_pipeline.yml/badge.svg)](https://github.com/zeine340/TP2_Scientific_Computing_Pipline/actions/workflows/ci_cd_pipeline.yml)
+
 ## Project overview
 
 Physics-Informed Neural Network for solving the Advection-Diffusion equation.
@@ -34,6 +36,21 @@ uv sync
 
 snakemake --cores all
 ```
+
+## CI/CD Artifacts
+
+After each successful workflow execution, the following artifacts are available from the corresponding GitHub Actions run:
+
+- `results.pdf`
+- `pinn_surface.html`
+- `pinn.pt`
+
+To download them:
+
+1. Open the **Actions** tab.
+2. Select a successful workflow run.
+3. Scroll to **Artifacts**.
+4. Download the desired artifact archive.
 
 ## Project structure
 ```
@@ -83,3 +100,4 @@ phd_integrator_project
 └── uv.lock
 
 ```
+
