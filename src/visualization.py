@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 from pathlib import Path
 
 plt.rcParams.update({
-    "text.usetex": True,
+    # "text.usetex": True,
     "font.family": "serif",
 })
 
