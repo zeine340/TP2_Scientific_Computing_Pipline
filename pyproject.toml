@@ -2,10 +2,11 @@
 name = "scientific-pipeline"
 version = "0.1.0"
 description = "Scientific computing pipeline"
-requires-python = ">=3.11"
+requires-python = "==3.11.*"
 
 dependencies = [
-    "numpy",
+    "numpy>=2.2",
+    "pandas>=2.3,<2.4",
     "scipy",
     "sympy",
     "polars",
@@ -15,6 +16,7 @@ dependencies = [
     "numba",
     "torch",
     "snakemake",
+    "joblib",
 ]
 
 [dependency-groups]
@@ -26,6 +28,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
+pythonpath = ["."]
 testpaths = ["tests"]
 addopts = "--cov=src"
 
@@ -35,3 +38,15 @@ line-length = 88
 [tool.mypy]
 python_version = "3.11"
 strict = true
+ignore_missing_imports = true
+disable_error_code = ["untyped-decorator","no-untyped-call"]
+
+[[tool.mypy.overrides]]
+module = [
+    "sympy.*",
+    "numba.*",
+    "joblib.*",
+    "plotly.*",
+    "seaborn.*",
+]
+

@@ -1,7 +1,9 @@
 from __future__ import annotations
+from typing import cast
 
 import torch
 import torch.nn as nn
+from torch.optim import Optimizer
 
 
 # ==========================================================
@@ -42,7 +44,7 @@ class PINN(nn.Module):
 
         super().__init__()
 
-        layers = []
+        layers: list[nn.Module] = []
 
         layers.append(nn.Linear(2, hidden_size))
         layers.append(nn.Tanh())
@@ -55,11 +57,14 @@ class PINN(nn.Module):
 
         self.network = nn.Sequential(*layers)
 
-    def forward(self, x, t):
+    def forward(
+        self,
+        x: torch.Tensor,
+        t: torch.Tensor,
+    ) -> torch.Tensor:
 
         inputs = torch.cat([x, t], dim=1)
-
-        return self.network(inputs)
+        return cast(torch.Tensor, self.network(inputs))
 
 
 # ==========================================================
@@ -67,11 +72,11 @@ class PINN(nn.Module):
 # ==========================================================
 
 def source_term(
-    x,
-    t,
-    c,
-    nu,
-):
+    x: torch.Tensor,
+    t: torch.Tensor,
+    c: float,
+    nu: float,
+) -> torch.Tensor:
     """
     Exact source term.
     """
@@ -86,12 +91,12 @@ def source_term(
 # ==========================================================
 
 def physics_loss(
-    model,
-    x,
-    t,
-    c,
-    nu,
-):
+    model: PINN,
+    x: torch.Tensor,
+    t: torch.Tensor,
+    c: float,
+    nu: float,
+) -> torch.Tensor:
 
     x.requires_grad_(True)
     t.requires_grad_(True)
@@ -134,11 +139,11 @@ def physics_loss(
 # ==========================================================
 
 def boundary_loss(
-    model,
-    xb,
-    tb,
-    target,
-):
+    model: PINN,
+    xb: torch.Tensor,
+    tb: torch.Tensor,
+    target: torch.Tensor,
+) -> torch.Tensor:
 
     prediction = model(xb, tb)
 
@@ -150,15 +155,15 @@ def boundary_loss(
 # ==========================================================
 
 def total_loss(
-    model,
-    x,
-    t,
-    xb,
-    tb,
-    ub,
-    c,
-    nu,
-):
+    model: PINN,
+    x: torch.Tensor,
+    t: torch.Tensor,
+    xb: torch.Tensor,
+    tb: torch.Tensor,
+    ub: torch.Tensor,
+    c: float,
+    nu: float,
+)-> torch.Tensor:
 
     l_phys = physics_loss(model, x, t, c, nu)
 
@@ -170,19 +175,18 @@ def total_loss(
 # ==========================================================
 # Training
 # ==========================================================
-
 def train(
-    model,
-    optimizer,
-    epochs,
-    x,
-    t,
-    xb,
-    tb,
-    ub,
-    c,
-    nu,
-):
+    model: PINN,
+    optimizer: Optimizer,
+    epochs:int,
+    x: torch.Tensor,
+    t: torch.Tensor,
+    xb: torch.Tensor,
+    tb: torch.Tensor,
+    ub: torch.Tensor,
+    c: float,
+    nu: float,
+) -> None:
 
     model.train()
 

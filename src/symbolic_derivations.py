@@ -1,7 +1,9 @@
-from sympy import symbols, tanh, diff, lambdify
+from typing import Any
+from collections.abc import Callable
+from sympy import symbols, Symbol, Expr, tanh, diff, lambdify
 
 
-def define_symbols():
+def define_symbols() -> tuple[Symbol, Symbol, Symbol, Symbol]:
     """
     Define symbolic variables and parameters.
 
@@ -14,8 +16,14 @@ def define_symbols():
     c, nu = symbols("c nu", real=True)
     return x, t, c, nu
 
+def analytical_solution() -> tuple[
+    Expr,
+    Symbol,
+    Symbol,
+    Symbol,
+    Symbol
+]:
 
-def analytical_solution():
     """
     Define the analytical solution u(x,t)=tanh(x-c*t).
 
@@ -28,8 +36,17 @@ def analytical_solution():
     u = tanh(x - c * t)
     return u, x, t, c, nu
 
-
-def compute_derivatives():
+def compute_derivatives() -> tuple[
+    Expr,
+    Expr,
+    Expr,
+    Expr,
+    Symbol,
+    Symbol,
+    Symbol,
+    Symbol,
+]:
+    
     """
     Compute symbolic derivatives.
 
@@ -46,8 +63,13 @@ def compute_derivatives():
 
     return u, du_dt, du_dx, d2u_dx2, x, t, c, nu
 
-
-def residual_source():
+def residual_source() -> tuple[
+    Expr,
+    Expr,
+    Expr,
+    Expr,
+    Expr
+]:
     """
     Compute the residual/source term
 
@@ -59,13 +81,13 @@ def residual_source():
         (f, x, t, c, nu)
     """
     u, du_dt, du_dx, d2u_dx2, x, t, c, nu = compute_derivatives()
+    
 
     f = du_dt + c * du_dx - nu * d2u_dx2
 
     return f, x, t, c, nu
 
-
-def export_numpy_functions():
+def export_numpy_functions() -> dict[str, Callable[..., Any]]:
     """
     Export NumPy functions using lambdify.
 

@@ -1,9 +1,13 @@
 from __future__ import annotations
+from collections.abc import Iterable
 
 import numpy as np
+from numpy.typing import NDArray
 
-
-def hilbert_matrix(n: int, dtype=np.float64) -> np.ndarray:
+def hilbert_matrix(
+    n: int,
+    dtype: type[np.floating] = np.float64,
+) -> NDArray[np.float64]:
     """
     Construct an n×n Hilbert matrix.
     """
@@ -39,10 +43,9 @@ def reconstruction_error(
     """
     return float(np.linalg.norm(A @ alpha - b))
 
-
 def compare_precisions(
-    n_values=range(5, 26),
-):
+    n_values: Iterable[int] = range(5, 26),
+) -> list[dict[str, float]]:
     """
     Compare float16, float32 and float64.
     """
@@ -91,11 +94,11 @@ def compare_precisions(
 
     return results
 
-
 def perturbation_analysis(
     n: int = 15,
     epsilon: float = 1e-7,
-):
+) -> dict[str, float]:
+
     """
     Study perturbation propagation.
     """

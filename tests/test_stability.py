@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.stability_analysis import (
+from src.analyse_stabilite import (
     hilbert_matrix,
     condition_number,
     solve_system,

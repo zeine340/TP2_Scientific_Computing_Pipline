@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.graph_objects as go
+from pathlib import Path
 
 plt.rcParams.update({
     "text.usetex": True,
@@ -12,12 +13,13 @@ plt.rcParams.update({
 
 
 def generate_static_figures(
-    X,
-    T,
-    prediction,
-    reference,
-    output_pdf="outputs/figures/results.pdf",
-):
+    X: np.ndarray,
+    T: np.ndarray,
+    prediction: np.ndarray,
+    reference: np.ndarray,
+    output_pdf: str | Path ="outputs/figures/results.pdf",
+) -> None:
+    
     """
     Generate publication-quality figures.
     """
@@ -56,11 +58,12 @@ def generate_static_figures(
 
 
 def generate_interactive_surface(
-    X,
-    T,
-    prediction,
-    output_html="outputs/figures/pinn_surface.html",
-):
+    X: np.ndarray,
+    T: np.ndarray,
+    prediction: np.ndarray,
+    # reference: np.ndarray,
+    output_html: str | Path ="outputs/figures/pinn_surface.html",
+) -> None:
     """
     Interactive 3D Plotly visualization.
     """

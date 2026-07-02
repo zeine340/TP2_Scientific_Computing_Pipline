@@ -6,6 +6,7 @@ import pstats
 
 import numpy as np
 from numba import njit, prange
+from numpy.typing import NDArray
 from joblib import Parallel, delayed
 
 
@@ -68,7 +69,7 @@ def profile_filter() -> None:
 # ==========================================================
 
 @njit(parallel=True, fastmath=True)
-def local_filter_numba(grid):
+def local_filter_numba(grid: NDArray[np.floating]) -> NDArray[np.floating]:
 
     n, m = grid.shape
 
@@ -99,10 +100,10 @@ def simulate_parameter(c: float, nu: float) -> float:
 
     result = local_filter_numba(grid)
 
-    return result.mean() + c + nu
+    return float(np.mean(result)) + c + nu
 
 
-def parameter_sweep():
+def parameter_sweep() -> list[float]:
 
     parameters = [
         (c, nu)
@@ -117,7 +118,7 @@ def parameter_sweep():
         for c, nu in parameters
     )
 
-    return results
+    return [float(x) for x in results]
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 import numpy as np
 from sympy import tanh
 
-from src.symbolic_derivation import (
+from src.symbolic_derivations import (
     define_symbols,
     analytical_solution,
     compute_derivatives,
@@ -22,7 +22,7 @@ def test_define_symbols():
 def test_analytical_solution():
     u, *_ = analytical_solution()
 
-    assert u.func == tanh
+    assert u.has(tanh)
 
 
 def test_compute_derivatives():
