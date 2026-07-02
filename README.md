@@ -53,7 +53,10 @@ To download them:
 4. Download the desired artifact archive.
 
 ## Project structure
+```
 phd_integrator_project
+├── .coverage
+├── .git
 ├── .github
 │   └── workflows
 │       └── ci_cd_pipeline.yml
@@ -64,14 +67,21 @@ phd_integrator_project
 ├── data
 │   ├── .gitkeep
 │   └── raw_sensors
+│       └── .gitkeep
 ├── outputs
 │   ├── figures
-│   └── models
+│   │   ├── pinn_surface.html
+│   │   └── results.pdf
+│   ├── models
+│   │   └── pinn.pt
+│   ├── stability_done.txt
+│   ├── symbolic_done.txt
+│   └── vectorization_done.txt
 ├── pyproject.toml
-├── questions_de_reflexion(suite).md
 ├── questions_de_reflexion.md
 ├── src
 │   ├── __init__.py
+│   ├── __pycache__
 │   ├── analyse_stabilite.py
 │   ├── deep_pinn.py
 │   ├── hpc_acceleration.py
@@ -79,11 +89,15 @@ phd_integrator_project
 │   ├── symbolic_derivations.py
 │   └── visualization.py
 ├── tests
+│   ├── __pycache__
 │   ├── conftest.py
-│   ├── test_symbolic.py
+│   ├── test_hpc.py
 │   ├── test_numerical.py
-│   ├── test_stability.py
 │   ├── test_pinn.py
+│   ├── test_stability.py
+│   ├── test_symbolic.py
 │   └── test_visualization.py
 └── uv.lock
+
+```
 
