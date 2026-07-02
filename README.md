@@ -1,3 +1,5 @@
+[![Scientific Computing CI/CD Pipeline](https://github.com/zeine340/TP2_Scientific_Computing_Pipline/actions/workflows/ci_cd_pipeline.yml/badge.svg)](https://github.com/zeine340/TP2_Scientific_Computing_Pipline/actions/workflows/ci_cd_pipeline.yml)
+
 ## Project overview
 
 Physics-Informed Neural Network for solving the Advection-Diffusion equation.
