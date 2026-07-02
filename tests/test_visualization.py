@@ -40,12 +40,15 @@ def test_plotly(tmp_path):
 
     prediction = np.sin(X)
 
+    reference = np.sin(X)
+
     output = tmp_path / "plot.html"
 
     generate_interactive_surface(
         X,
         T,
         prediction,
+        reference,
         output,
     )
 

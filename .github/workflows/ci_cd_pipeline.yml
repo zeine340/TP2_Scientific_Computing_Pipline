@@ -44,10 +44,12 @@ jobs:
 
       - name: Execute Test Suite & Coverage (PyTest)
         run: uv run pytest --cov=src --cov-report=xml tests/
+
+      - name: Upload generated artifacts
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: scientific-results
+          name: scientific-results-${{ matrix.python-version }}
           path: |
             outputs/figures/
             outputs/models/
