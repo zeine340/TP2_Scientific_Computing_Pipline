@@ -121,7 +121,7 @@ def parameter_sweep() -> list[float]:
     return [float(x) for x in results]
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
 
     profile_filter()
 

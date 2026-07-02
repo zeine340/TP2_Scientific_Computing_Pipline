@@ -1,5 +1,6 @@
 from __future__ import annotations
 from collections.abc import Iterable
+from pathlib import Path
 
 import numpy as np
 from numpy.typing import NDArray
@@ -150,8 +151,11 @@ def validate_solution(
     )
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
 
+    out = Path("outputs")
+    out.mkdir(parents=True, exist_ok=True)
+    
     A = hilbert_matrix(10)
 
     print("Condition number:", condition_number(A))
@@ -171,3 +175,5 @@ if __name__ == "__main__":
     x_hat = solve_system(A, b)
 
     print(validate_solution(A, x_hat, b))
+
+    (out / "stability_done.txt").touch()

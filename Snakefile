@@ -10,8 +10,7 @@ rule derive_symbolic:
         "outputs/symbolic_done.txt"
     shell:
         """
-        python src/symbolic_derivation.py
-        touch {output}
+        uv run python src/symbolic_derivations.py
         """
 
 
@@ -22,8 +21,7 @@ rule ingest_and_vectorize:
         "outputs/vectorization_done.txt"
     shell:
         """
-        python src/numerical_core.py
-        touch {output}
+        uv run python src/numerical_core.py
         """
 
 
@@ -34,8 +32,7 @@ rule analyze_stability:
         "outputs/stability_done.txt"
     shell:
         """
-        python src/stability_analysis.py
-        touch {output}
+        uv run python src/analyse_stabilite.py
         """
 
 
@@ -46,7 +43,7 @@ rule train_pinn:
         "outputs/models/pinn.pt"
     shell:
         """
-        python src/deep_pinn.py
+        uv run python src/deep_pinn.py
         """
 
 
@@ -58,5 +55,5 @@ rule generate_plots:
         "outputs/figures/pinn_surface.html"
     shell:
         """
-        python src/visualization.py
+        uv run python src/visualization.py
         """

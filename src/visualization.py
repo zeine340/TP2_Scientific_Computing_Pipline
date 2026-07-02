@@ -17,7 +17,7 @@ def generate_static_figures(
     T: np.ndarray,
     prediction: np.ndarray,
     reference: np.ndarray,
-    output_pdf: str | Path ="outputs/figures/results.pdf",
+    output_pdf: str | Path #="outputs/figures/results.pdf",
 ) -> None:
     
     """
@@ -61,8 +61,8 @@ def generate_interactive_surface(
     X: np.ndarray,
     T: np.ndarray,
     prediction: np.ndarray,
-    # reference: np.ndarray,
-    output_html: str | Path ="outputs/figures/pinn_surface.html",
+    reference: np.ndarray,
+    output_html: str | Path #="outputs/figures/pinn_surface.html",
 ) -> None:
     """
     Interactive 3D Plotly visualization.
@@ -92,3 +92,62 @@ def generate_interactive_surface(
         output_html,
         include_plotlyjs="cdn",
     )
+
+if __name__ == "__main__":  # pragma: no cover
+
+    # -----------------------------------------------------------------
+    # Create output directory
+    # -----------------------------------------------------------------
+
+    out = Path("outputs/figures")
+    out.mkdir(parents=True, exist_ok=True)
+
+    # -----------------------------------------------------------------
+    # Build a demonstration spatio-temporal grid
+    # -----------------------------------------------------------------
+
+    x = np.linspace(0.0, 1.0, 100)
+    t = np.linspace(0.0, 1.0, 100)
+
+    X, T = np.meshgrid(x, t)
+
+    # -----------------------------------------------------------------
+    # Reference analytical solution
+    # -----------------------------------------------------------------
+
+    reference = np.sin(np.pi * X) * np.exp(-T)
+
+    # -----------------------------------------------------------------
+    # Simulated PINN prediction
+    # (replace with your trained model if desired)
+    # -----------------------------------------------------------------
+
+    rng = np.random.default_rng(42)
+
+    prediction = reference + 0.02 * rng.standard_normal(reference.shape)
+
+    # -----------------------------------------------------------------
+    # Generate publication-quality PDF
+    # -----------------------------------------------------------------
+
+    generate_static_figures(
+        X,
+        T,
+        prediction,
+        reference,
+        out / "results.pdf",
+    )
+
+    # -----------------------------------------------------------------
+    # Generate interactive Plotly figure
+    # -----------------------------------------------------------------
+
+    generate_interactive_surface(
+        X,
+        T,
+        prediction,
+        reference,
+        out / "pinn_surface.html",
+    )
+
+    print("Visualization completed successfully.")

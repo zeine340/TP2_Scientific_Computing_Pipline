@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any
 from collections.abc import Callable
 from sympy import symbols, Symbol, Expr, tanh, diff, lambdify
@@ -108,7 +109,11 @@ def export_numpy_functions() -> dict[str, Callable[..., Any]]:
     }
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
+
+    out = Path("outputs")
+    out.mkdir(parents=True, exist_ok=True)
+
     u, du_dt, du_dx, d2u_dx2, *_ = compute_derivatives()
     f, *_ = residual_source()
 
@@ -117,3 +122,5 @@ if __name__ == "__main__":
     print("∂u/∂x =", du_dx)
     print("∂²u/∂x² =", d2u_dx2)
     print("Residual f(x,t) =", f)
+
+    (out / "symbolic_done.txt").touch()

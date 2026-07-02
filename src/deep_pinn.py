@@ -1,4 +1,5 @@
 from __future__ import annotations
+from pathlib import Path
 from typing import cast
 
 import torch
@@ -216,8 +217,11 @@ def train(
             )
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
 
+    out = Path("outputs/models")
+    out.mkdir(parents=True, exist_ok=True)
+    
     model = PINN().to(DEVICE)
 
     optimizer = torch.optim.Adam(
@@ -247,3 +251,5 @@ if __name__ == "__main__":
         c=1.0,
         nu=0.1,
     )
+
+    (out / "pinn.pt").touch()

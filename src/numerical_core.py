@@ -1,6 +1,7 @@
 # src/numerical_core.py
 
 from __future__ import annotations
+from pathlib import Path
 
 import numpy as np
 import polars as pl
@@ -129,7 +130,9 @@ def apply_residual_vectorized(
     return residual(X, T, c, nu)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
+    out = Path("outputs")
+    out.mkdir(parents=True, exist_ok=True)
 
     X, T = create_grid(300, 200)
 
@@ -142,3 +145,5 @@ if __name__ == "__main__":
     F = apply_residual_vectorized(X, T)
 
     print("Residual shape :", F.shape)
+
+    (out / "vectorization_done.txt").touch()
